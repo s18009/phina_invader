@@ -281,13 +281,18 @@ phina.define('EnemyGroup', {
 
     shot: function () {
         //敵の弾を生成
-        var enemyshot = {};
+        var EnemyShots = {};
         var enemys = [];
-        this.random = Math.floor(Math.random()*this.children.length);
+        var PossibleEnemy = null;
         this.children.forEach(enemy => {
-            const position = enemy.position;
-            Missile(position.x, position.y).addChildTo(this.parent.missileGroup);
+            EnemyShots[enemy.x] = enemy;
         });
+
+        for (key in EnemyShots) {
+            enemys.push(EnemyShots[key]);
+        }
+        PossibleEnemy = enemys[Math.floor(Math.random() * enemys.length)];
+        Missile(PossibleEnemy.x, PossibleEnemy.y).addChildTo(this.parent.missileGroup);
     },
 });
 
